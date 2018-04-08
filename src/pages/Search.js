@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Book from '../components/Book'
 
-const Search = (props) => {
+const Search = ({ books }) => {
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -20,7 +21,11 @@ const Search = (props) => {
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid"></ol>
+        <ol className="books-grid">
+        { books.map(book => (
+          <Book { ...book } key={book.id} />
+        )) }
+        </ol>
       </div>
     </div>
   )
