@@ -7,6 +7,12 @@ import Search from './pages/Search'
 import './App.css'
 
 class BooksApp extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.onSearchQuery = this.onSearchQuery.bind(this)
+  }
+
   state = {
     books: []
   }
@@ -17,14 +23,20 @@ class BooksApp extends React.Component {
     })
   }
 
+  onSearchQuery(query) {
+    BooksAPI.search(query).then(books => {
+      this.setState({ books })
+    })
+  }
+
   render() {
     const { books } = this.state
 
     return (
       <div className="app">
         <Switch>
-          <PropsRoute exact path="/" component={Root} books={ books } />
-          <PropsRoute exact path="/search" component={Search} books={ books } />
+          <PropsRoute exact path="/" component={Root} books={books} />
+          <PropsRoute exact path="/search" component={Search} books={books} onSearchQuery={this.onSearchQuery} />
         </Switch>
       </div>
     )
