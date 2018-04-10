@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Book from '../components/Book'
+import Bookshelf from '../components/Bookshelf'
 
 const Root = (props) => {
   const { books } = props
@@ -11,38 +11,9 @@ const Root = (props) => {
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        <div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Currently Reading</h2>
-            <div className="bookshelf-books">
-              <ol className="books-grid">
-                { books.map(book => (
-                  <Book { ...book } key={book.id} />
-                ))}
-              </ol>
-            </div>
-          </div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Want to Read</h2>
-            <div className="bookshelf-books">
-              <ol className="books-grid">
-                { books.map(book => (
-                  <Book { ...book } key={book.id} />
-                ))}
-              </ol>
-            </div>
-          </div>
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Read</h2>
-            <div className="bookshelf-books">
-              <ol className="books-grid">
-                { books.map(book => (
-                  <Book { ...book } key={book.id} />
-                ))}
-              </ol>
-            </div>
-          </div>
-        </div>
+        <Bookshelf books={books} key='currentlyReading' name='currentlyReading' title='Currently Reading' />
+        <Bookshelf books={books} key='wantToRead' name='wantToRead' title='Want to Read' />
+        <Bookshelf books={books} key='read' name='read' title='Read' />
       </div>
       <div className="open-search">
         <Link to="/search">Add a book</Link>
