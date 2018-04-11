@@ -29,14 +29,37 @@ class BooksApp extends React.Component {
       })
   }
 
+  onShelfChange(book, shelf) {
+    BooksAPI.update(book, shelf)
+      .then(result => {
+        console.log(result)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
   render() {
     const { books, search } = this.state
 
     return (
       <div className="app">
         <Switch>
-          <PropsRoute exact path="/" component={Root} books={books} />
-          <PropsRoute exact path="/search" component={Search} books={search} onSearchQuery={debounce((query) => { this.onSearchQuery(query) }, 500)} />
+          <PropsRoute
+            exact
+            path="/"
+            component={Root}
+            books={books}
+            onShelfChange={(book, shelf) => { this.onShelfChange(book,shelf) }}
+          />
+          <PropsRoute
+            exact
+            path="/search"
+            component={Search}
+            books={search}
+            onSearchQuery={debounce((query) => { this.onSearchQuery(query) }, 500)}
+            onShelfChange={(book, shelf) => { this.onShelfChange(book,shelf) }}
+          />
         </Switch>
       </div>
     )

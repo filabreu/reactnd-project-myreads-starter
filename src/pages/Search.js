@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Book from '../components/Book'
 import SearchInput from '../components/Search'
 
-const Search = ({ books, onSearchQuery }) => {
+const Search = ({ books, onSearchQuery, onShelfChange }) => {
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -15,7 +15,7 @@ const Search = ({ books, onSearchQuery }) => {
       <div className="search-books-results">
         <ol className="books-grid">
         { books.map(book => (
-          <Book { ...book } key={book.id} />
+          <Book book={book} key={book.id} onShelfChange={onShelfChange} />
         )) }
         </ol>
       </div>
