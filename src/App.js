@@ -5,17 +5,19 @@ import PropsRoute from './utils/PropsRoute'
 import * as BooksAPI from './BooksAPI'
 import Root from './pages/Root'
 import Search from './pages/Search'
+import ShelvesSelector from './selectors/ShelvesSelector'
 import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    books: [],
+    shelves: [],
     search: []
   }
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
-      this.setState({ books })
+      const shelves = ShelvesSelector(books)
+      this.setState({ shelves })
     })
   }
 
@@ -40,7 +42,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const { books, search } = this.state
+    const { shelves, search } = this.state
 
     return (
       <div className="app">
@@ -49,7 +51,7 @@ class BooksApp extends React.Component {
             exact
             path="/"
             component={Root}
-            books={books}
+            shelves={shelves}
             onShelfChange={(book, shelf) => { this.onShelfChange(book,shelf) }}
           />
           <PropsRoute
