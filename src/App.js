@@ -5,7 +5,7 @@ import PropsRoute from './utils/PropsRoute'
 import * as BooksAPI from './BooksAPI'
 import Root from './pages/Root'
 import Search from './pages/Search'
-import ShelvesSelector from './selectors/ShelvesSelector'
+import * as ShelvesSelector from './selectors/ShelvesSelector'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -16,7 +16,7 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
-      const shelves = ShelvesSelector(books)
+      const shelves = ShelvesSelector.setShelves(books)
       this.setState({ shelves })
     })
   }
@@ -34,7 +34,8 @@ class BooksApp extends React.Component {
   onShelfChange(book, shelf) {
     BooksAPI.update(book, shelf)
       .then(result => {
-        console.log(result)
+        const shelves = ShelvesSelector.changeShelf(this.state.shelves, book, result)
+        this.setState({ shelves })
       })
       .catch(error => {
         console.log(error)
