@@ -20,3 +20,15 @@ export const changeShelf = (shelves, book, shelvesLayout) => {
   return shelves
 }
 
+export const setShelftoBooks = (shelves, books) => {
+  books = books.map(book => {
+    let shelf = Object.keys(shelves).find(shelf => ( shelves[shelf].map(i => (i.id)).includes(book.id) ))
+
+    book.shelf = shelf || 'none'
+
+    return book
+  })
+
+  return books
+}
+

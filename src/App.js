@@ -23,7 +23,8 @@ class BooksApp extends React.Component {
 
   onSearchQuery(query) {
     BooksAPI.search(query)
-      .then(search => {
+      .then(result => {
+        const search = ShelvesSelector.setShelftoBooks(this.state.shelves, result)
         this.setState({ search })
       })
       .catch(error => {
